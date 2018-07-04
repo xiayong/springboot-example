@@ -2,7 +2,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
+*.project
+*.settings
 .apt_generated
+.metadata
 .classpath
 .factorypath
 .project
@@ -22,3 +25,11 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+
+*.class
+*.jar
+*.war
+*.swp
+logs
+.DS_Store
