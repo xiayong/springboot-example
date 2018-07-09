@@ -33,3 +33,4 @@ nbdist/
 *.swp
 logs
 .DS_Store
+*.db
