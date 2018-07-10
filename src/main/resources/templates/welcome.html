@@ -15,5 +15,9 @@
 <body>
 	Message: <span th:text="${message}"></span>
     <a href="javascript:void(0)" onclick="showMsg()">SHOW MESSAGE.</a>
+    <br>
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="LOGOUT" />
+    </form>
 </body>
 </html>

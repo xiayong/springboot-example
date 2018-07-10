@@ -23,6 +23,14 @@ public class ViewController {
         return modelAndView;
     }
 
+    @RequestMapping("/{page}")
+    public ModelAndView mapping(@PathVariable String page, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(page);
+        request.getParameterMap().forEach((key, value)-> modelAndView.addObject(key, value.length > 1 ? value : value[0]));
+        return modelAndView;
+    }
+
     @RequestMapping("/{module}/{page}")
     public ModelAndView mapping(@PathVariable String module, @PathVariable String page, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();

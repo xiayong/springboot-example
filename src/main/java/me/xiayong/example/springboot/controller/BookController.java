@@ -13,11 +13,12 @@ import java.util.List;
  * @author YongXia.
  * @since 1.0
  */
+@Setter
+@Getter
 @RestController
 @RequestMapping("book")
 public class BookController {
-    @Setter
-    @Getter
+
     @Autowired
     private BookService bookService;
 
