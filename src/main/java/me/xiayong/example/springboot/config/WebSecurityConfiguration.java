@@ -1,8 +1,10 @@
 package me.xiayong.example.springboot.config;
 
 import lombok.Getter;
+import me.xiayong.example.springboot.service.impl.JPABasedUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,8 @@ import org.springframework.security.core.userdetails.User;
 public class WebSecurityConfiguration {
     private static Logger logger = LoggerFactory.getLogger(WebSecurityConfiguration.class);
 
+    @Autowired
+    private JPABasedUserDetailsService userDetailsService;
 
     @Bean
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -50,17 +54,23 @@ public class WebSecurityConfiguration {
                         logger.info("User: {} logout successful.", user.getUsername());
                         response.sendRedirect(request.getContextPath() + "/view/login?logout");
                     }))
+                    .and()
+                    .headers().frameOptions().disable()
+                    .and()
+                    .csrf().disable()
             ;
+
 
             // super.configure(http);
         }
 
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("admin").password("admin").roles("ADMIN", "USER")
-                    .and()
-                    .withUser("user").password("user").roles("USER");
+//            auth.inMemoryAuthentication()
+//                    .withUser("admin").password("admin").roles("ADMIN", "USER")
+//                    .and()
+//                    .withUser("user").password("user").roles("USER");
+            auth.userDetailsService(userDetailsService);
         }
     }
 
