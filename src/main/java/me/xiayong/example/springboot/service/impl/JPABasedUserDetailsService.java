@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.util.Collections;
 
 /**
  * @author YongXia.
@@ -21,9 +21,15 @@ public class JPABasedUserDetailsService implements UserDetailsService {
 
 
     private UserDetails buildUserDetails(User user) {
-        org.springframework.security.core.userdetails.User userDetails
-                = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, Collections.emptySet());
-        return userDetails;
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .disabled(!user.getEnabled())
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .roles(StringUtils.hasText(user.getRoles()) ? user.getRoles().split(",") : new String[]{})
+                .build();
     }
 
     @Override

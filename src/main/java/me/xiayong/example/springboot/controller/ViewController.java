@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.0
  */
 @Controller
-@RequestMapping("view")
+@RequestMapping
 public class ViewController {
-    @RequestMapping(value = {"", "/"})
+    @RequestMapping(value = {"", "/", "/view", "/view/"})
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("welcome");
@@ -23,7 +23,7 @@ public class ViewController {
         return modelAndView;
     }
 
-    @RequestMapping("/{page}")
+    @RequestMapping("/view/{page}")
     public ModelAndView mapping(@PathVariable String page, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(page);
@@ -31,7 +31,7 @@ public class ViewController {
         return modelAndView;
     }
 
-    @RequestMapping("/{module}/{page}")
+    @RequestMapping("/view/{module}/{page}")
     public ModelAndView mapping(@PathVariable String module, @PathVariable String page, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(module + "/" + page);

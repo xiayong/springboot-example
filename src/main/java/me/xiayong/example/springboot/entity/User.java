@@ -33,6 +33,9 @@ public class User {
     @Column(nullable = false)
     private Boolean enabled;
 
+    @Column
+    private String roles;
+
     @Column(nullable = false)
     private Timestamp createTime;
 

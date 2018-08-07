@@ -39,27 +39,27 @@ public class WebSecurityConfiguration {
             http
                     .authorizeRequests()
                     .antMatchers("/css/**", "/js/**").permitAll().anyRequest().fullyAuthenticated()
-//                    .antMatchers( "/view", "/view/").permitAll().anyRequest().fullyAuthenticated()
+                    .and()
+                    .authorizeRequests().antMatchers("/h2/**").hasRole("ADMIN").anyRequest().authenticated()
                     .and()
                     .formLogin().loginProcessingUrl("/login").permitAll().loginPage("/view/login").successForwardUrl("/view").failureUrl("/view/login?error")
-                    .successHandler(((request, response, authentication) -> {
+                    .successHandler((request, response, authentication) -> {
                         User user = (User) authentication.getPrincipal();
                         logger.info("User: {} login successful.", user.getUsername());
                         response.sendRedirect(request.getContextPath() + "/view");
-                    }))
+                    })
                     .and()
                     .logout().logoutUrl("/logout").permitAll().logoutSuccessUrl("/view/login?logout")
-                    .logoutSuccessHandler(((request, response, authentication) -> {
+                    .logoutSuccessHandler((request, response, authentication) -> {
                         User user = (User) authentication.getPrincipal();
                         logger.info("User: {} logout successful.", user.getUsername());
                         response.sendRedirect(request.getContextPath() + "/view/login?logout");
-                    }))
+                    })
                     .and()
                     .headers().frameOptions().disable()
                     .and()
-                    .csrf().disable()
+                    .csrf().ignoringAntMatchers("/h2/**")
             ;
-
 
             // super.configure(http);
         }
