@@ -38,40 +38,62 @@ public class WebSecurityConfiguration {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/css/**", "/js/**").permitAll().anyRequest().fullyAuthenticated()
+                    .antMatchers("/css/**", "/js/**").permitAll()
+                    .antMatchers("/h2/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+
                     .and()
-                    .authorizeRequests().antMatchers("/h2/**").hasRole("ADMIN").anyRequest().authenticated()
-                    .and()
-                    .formLogin().loginProcessingUrl("/login").permitAll().loginPage("/view/login").successForwardUrl("/view").failureUrl("/view/login?error")
+                    .formLogin()
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .loginProcessingUrl("/login")
+                    .loginPage("/view/login")
+                    .successForwardUrl("/view")
+                    .failureUrl("/view/login?error")
                     .successHandler((request, response, authentication) -> {
+                        // 如果指定了successHandler successForwardUrl将被忽略
                         User user = (User) authentication.getPrincipal();
-                        logger.info("User: {} login successful.", user.getUsername());
+                        logger.info("user[{}] login successful.", user.getUsername());
                         response.sendRedirect(request.getContextPath() + "/view");
-                    })
+                    }).permitAll()
+
                     .and()
-                    .logout().logoutUrl("/logout").permitAll().logoutSuccessUrl("/view/login?logout")
+                    .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/view/login?logout")
                     .logoutSuccessHandler((request, response, authentication) -> {
-                        User user = (User) authentication.getPrincipal();
-                        logger.info("User: {} logout successful.", user.getUsername());
+                        // 如果指定了logoutSuccessHandler logoutSuccessUrl将被忽略
+                        if (authentication != null) {
+                            User user = (User) authentication.getPrincipal();
+                            logger.info("user[{}] logout successful.", user.getUsername());
+                        }
                         response.sendRedirect(request.getContextPath() + "/view/login?logout");
                     })
+                    .invalidateHttpSession(true)
+                    .deleteCookies()
+                    .permitAll()
+
                     .and()
                     .headers().frameOptions().disable()
                     .and()
-                    .csrf().ignoringAntMatchers("/h2/**")
+                    .csrf().ignoringAntMatchers("/h2/**", "/logout")
+//                    .csrf().disable()
             ;
-
             // super.configure(http);
         }
 
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService);
+        }
+
+//        @Autowired
+//        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //            auth.inMemoryAuthentication()
 //                    .withUser("admin").password("admin").roles("ADMIN", "USER")
 //                    .and()
 //                    .withUser("user").password("user").roles("USER");
-            auth.userDetailsService(userDetailsService);
-        }
+//        }
     }
 
 
