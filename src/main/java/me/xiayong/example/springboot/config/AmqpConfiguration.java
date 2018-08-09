@@ -13,5 +13,5 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:rabbit.properties")
 @EnableConfigurationProperties(RabbitMQProperties.class)
-public class AmqpAutoConfiguration {
+public class AmqpConfiguration {
 }
