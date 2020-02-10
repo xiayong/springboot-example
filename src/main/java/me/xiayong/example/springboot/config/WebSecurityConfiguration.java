@@ -39,7 +39,7 @@ public class WebSecurityConfiguration {
             http
                     .authorizeRequests()
                     .antMatchers("/css/**", "/js/**").permitAll()
-                    .antMatchers("/h2/**").hasRole("ADMIN")
+                    .antMatchers("/h2/**").hasRole("ADMINISTRATOR")
                     .anyRequest().authenticated()
 
                     .and()
@@ -90,7 +90,7 @@ public class WebSecurityConfiguration {
 //        @Autowired
 //        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //            auth.inMemoryAuthentication()
-//                    .withUser("admin").password("admin").roles("ADMIN", "USER")
+//                    .withUser("admin").password("admin").roles("ADMINISTRATOR", "USER")
 //                    .and()
 //                    .withUser("user").password("user").roles("USER");
 //        }
