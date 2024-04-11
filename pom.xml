@@ -11,9 +11,11 @@
 	<name>springboot-example</name>
 	<description>Example project for Spring Boot</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
+
+	<modules>
+		<module>springboot-example-parent</module>
+		<module>springboot-jdbc</module>
+		<module>springboot-reactive</module>
+	</modules>
 
 </project>
