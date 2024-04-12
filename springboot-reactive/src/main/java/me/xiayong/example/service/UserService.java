@@ -20,7 +20,7 @@ public class UserService {
     public Mono<User> save(User user) {
         return userRepository.save(user)
                 .onErrorResume(e ->
-                        userRepository.findById(user.getUsername())
+                        userRepository.findByUsername(user.getUsername())
                                 .flatMap(originalUser -> {
                                     user.setUsername(originalUser.getUsername());
                                     return userRepository.save(user);
@@ -28,11 +28,11 @@ public class UserService {
     }
 
     public Mono<Void> deleteByUsername(String username) {
-        return userRepository.deleteById(username);
+        return userRepository.deleteByUsername(username);
     }
 
     public Mono<User> findByUsername(String username) {
-        return userRepository.findById(username);
+        return userRepository.findByUsername(username);
     }
 
     public Flux<User> findAll() {

@@ -1,8 +1,8 @@
 package me.xiayong.example.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Timestamp;
@@ -16,12 +16,12 @@ import java.sql.Timestamp;
 @Data
 public class User {
     @Id
+    private Integer userId;
     private String username;
     private String passwd;
     private String email;
-    private String fullname;
-    @Column("phone_number")
+    private String fullName;
     private String phoneNumber;
-    @Column("create_time")
+    @CreatedBy
     private Timestamp createTime;
 }
