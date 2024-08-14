@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserService {
     @Autowired
@@ -21,9 +23,13 @@ public class UserService {
         return userRepository.save(user)
                 .onErrorResume(e ->
                         userRepository.findByUsername(user.getUsername())
-                                .flatMap(originalUser -> {
-                                    user.setUsername(originalUser.getUsername());
-                                    return userRepository.save(user);
+                                .flatMap(existUser -> {
+                                    existUser.setUsername(user.getUsername());
+                                    existUser.setPasswd(user.getPasswd());
+                                    existUser.setEmail(user.getEmail());
+                                    existUser.setFullName(user.getFullName());
+                                    existUser.setUpdateTime(LocalDateTime.now());
+                                    return userRepository.save(existUser);
                                 }));
     }
 

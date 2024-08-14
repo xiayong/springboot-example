@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 
-        <spring-boot.version>3.2.3</spring-boot.version>
+        <spring-boot.version>3.3.2</spring-boot.version>
         <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
     </properties>
 
@@ -38,6 +38,14 @@
                     <groupId>org.graalvm.buildtools</groupId>
                     <artifactId>native-maven-plugin</artifactId>
                     <version>${native-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>build-image</id>
+                            <goals>
+                                <goal>compile-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>

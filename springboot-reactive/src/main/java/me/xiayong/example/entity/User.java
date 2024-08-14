@@ -1,11 +1,10 @@
 package me.xiayong.example.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author: Yong Xia.
@@ -22,6 +21,6 @@ public class User {
     private String email;
     private String fullName;
     private String phoneNumber;
-    @CreatedBy
-    private Timestamp createTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }
