@@ -15,7 +15,7 @@
 
 
         <spring-boot.version>3.3.2</spring-boot.version>
-        <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
+        <native-maven-plugin.version>0.10.2</native-maven-plugin.version>
     </properties>
 
 
