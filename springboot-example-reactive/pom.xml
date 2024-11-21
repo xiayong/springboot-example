@@ -6,11 +6,11 @@
     <parent>
         <groupId>me.xiayong.example</groupId>
         <artifactId>springboot-example-parent</artifactId>
-        <version>3.X-SNAPSHOT</version>
+        <version>3.X</version>
         <relativePath>../springboot-example-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>springboot-reactive</artifactId>
+    <artifactId>springboot-example-reactive</artifactId>
 
 
     <dependencies>

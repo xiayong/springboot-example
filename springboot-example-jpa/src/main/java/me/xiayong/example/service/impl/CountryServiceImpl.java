@@ -1,7 +1,8 @@
-package me.xiayong.example.service;
+package me.xiayong.example.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import me.xiayong.example.persistence.CountryRepository;
+import me.xiayong.example.service.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.List;
  **/
 @Service
 @Slf4j
-public class CountryServiceImpl implements ICountryService{
+public class CountryServiceImpl implements ICountryService {
     @Autowired
     private CountryRepository countryRepository;
 

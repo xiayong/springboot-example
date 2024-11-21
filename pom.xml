@@ -5,7 +5,7 @@
 
 	<groupId>me.xiayong.example</groupId>
 	<artifactId>springboot-example</artifactId>
-	<version>3.X-SNAPSHOT</version>
+	<version>3.X</version>
 	<packaging>pom</packaging>
 
 	<name>springboot-example</name>
@@ -14,8 +14,8 @@
 
 	<modules>
 		<module>springboot-example-parent</module>
-		<module>springboot-jdbc</module>
-		<module>springboot-reactive</module>
+		<module>springboot-example-jpa</module>
+		<module>springboot-example-reactive</module>
 	</modules>
 
 </project>
